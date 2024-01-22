@@ -1,0 +1,83 @@
+#Hangman with swedish fruits and berries, 65 words
+import random
+
+hangmanlist = [ "äpple", "apelsin", "banan", "jordgubbe", "kiwi",
+                "mango", "ananas", "blåbär", "vattenmelon", "citron",
+                "persika", "päron", "plommon", "körsbär", "granatäpple",
+                "hallon", "melon", "mandarin", "nektarin", "aprikos",
+                "papaya", "passionsfrukt", "kaktusfikon", "kivifrukt", "avokado",
+                "klementin", "kokosnöt", "fikon", "körsbärstomat", "druva",
+                "citronmeliss", "vinbär", "vindruva", "maracuja", "tranbär",
+                "lingon", "apelsinmeliss", "litchi", "kumquat", "boysenbär",
+                "fläderbär", "gojibär", "guava", "nashipäron", "svartvinbär",
+                "rabarber", "kiwanobär", "citronverbena", "clementin", "longan",
+                "stjärnfrukt", "pomelo", "soursop", "sapote", "physalis",
+                "citronkaktus", "kiwanomelon", "rönnbär", "kastanj", "kvitten",
+                "fikonkaktus", "fikon", "körsbärspaprika", "acaibär", "ackee" ]
+
+# Controls if the character "charGuess" exists in the word "theWord"
+def doesCharExist(theWord, charGuess, rightGuess):
+    exist = False
+    for i in range(0,len(theWord)):
+        if theWord[i] == charGuess:
+            rightGuess[i] = charGuess
+            exist = True
+    return exist
+
+# Controls if the player has won the game
+def checkIfRight(rightGuess):
+    gamewin = True
+    for i in range(0,len(rightGuess)):
+        if rightGuess[i] == "*":
+            gamewin = False
+    if gamewin:
+        print("Du vann!!! Bra jobbat.")        
+    return gamewin
+
+# Starts the game Hangman
+def playHangMan():
+    index = random.randint(0,64)
+    theWord =hangmanlist[index]
+    thewordLength = len(theWord)
+    rightGuess = ["*"] * len(theWord)
+    numOfGuesses = 1
+
+    print(f"\nOrdet du skall gissa är på {thewordLength} bokstäver. \nDu har tio gissningar på dig innan spelet avslutas.")
+    
+    while numOfGuesses < 11 and not checkIfRight(rightGuess):
+
+       # while True:
+            charGuess = input('Gissa på en bokstav:')
+            
+            if len(charGuess) == 1 and charGuess.isalpha():
+                
+                if doesCharExist(theWord, charGuess, rightGuess):
+                    print(f"Bokstaven {charGuess} finns i ordet: {rightGuess}")
+                else:
+                    print(f"Bokstaven {charGuess} finns inte i ordet")    
+                numOfGuesses += 1
+
+            else:
+                print("Mata bara in en bokstav:")
+                continue
+    if numOfGuesses == 11:
+        print(f"\nTyvärr du förlorade. Det rätta ordet var {theWord}. \n")
+
+            
+# Menu
+while True:
+    print("\n-------------------------")
+    print("| Välj en åtgärd:       |")
+    print("| 1. Spela \"hangman\"    |")
+    print("| 2. Avsluta programmet |")
+    print("-------------------------")
+
+    choice = input('Ange ditt val (1-2):')
+
+    if choice == '1':
+        playHangMan() 
+    elif choice == '2':
+        print('Programmet avslutas. Hej då!')
+        break
+    else:
+        print('Ogiltigt val. Försök igen.')
