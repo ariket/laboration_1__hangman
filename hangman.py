@@ -1,5 +1,6 @@
 #Hangman with swedish fruits and berries, 65 words
 import random
+import os
 
 hangmanlist = [ "äpple", "apelsin", "banan", "jordgubbe", "kiwi",
                 "mango", "ananas", "blåbär", "vattenmelon", "citron",
@@ -40,29 +41,126 @@ def playHangMan():
     theWord =hangmanlist[index]
     thewordLength = len(theWord)
     rightGuess = ["*"] * len(theWord)
-    numOfGuesses = 1
+    numOfGuesses = 0
 
-    print(f"\nOrdet du skall gissa är på {thewordLength} bokstäver. \nDu har tio gissningar på dig innan spelet avslutas.")
+    print(f"\nOrdet du skall gissa är på {thewordLength} bokstäver. \nDu får tio felaktiga gissningar på dig innan spelet avslutas.")
     
     while numOfGuesses < 11 and not checkIfRight(rightGuess):
-
-       # while True:
-            charGuess = input('Gissa på en bokstav:')
+        charGuess = input('Gissa på en bokstav:')
+        os.system('cls')
+        if len(charGuess) == 1 and charGuess.isalpha():
             
-            if len(charGuess) == 1 and charGuess.isalpha():
-                
-                if doesCharExist(theWord, charGuess, rightGuess):
-                    print(f"Bokstaven {charGuess} finns i ordet: {rightGuess}")
-                else:
-                    print(f"Bokstaven {charGuess} finns inte i ordet")    
+            if doesCharExist(theWord, charGuess, rightGuess):
+                print(f"Bokstaven {charGuess} finns i ordet:      {rightGuess}")
+            else:
+                print(f"Bokstaven {charGuess} finns inte i ordet: {rightGuess}")    
                 numOfGuesses += 1
 
-            else:
-                print("Mata bara in en bokstav:")
-                continue
+        else:
+            print("Mata bara in en bokstav:")
+            continue
+        
+        hangmanGrapic(numOfGuesses)
     if numOfGuesses == 11:
         print(f"\nTyvärr du förlorade. Det rätta ordet var {theWord}. \n")
 
+def hangmanGrapic(x):
+    if x == 0:
+        print('   ',  '      ')
+        print('   ',  '      ')
+        print('   ',  '      ')
+        print('   ',  '|     ')
+        print('   ',  '|     ')
+        print('   ',  '|     ')
+        print('------------')
+    if x == 1:
+        print('   ',  '      ')
+        print('   ',  '      ')
+        print('   ',  '|     ')
+        print('   ',  '|     ')
+        print('   ',  '|     ')
+        print('   ',  '|     ')
+        print('------------')
+    if x == 2:
+        print('   ',  '      ')
+        print('   ',  '|     ')
+        print('   ',  '|     ')
+        print('   ',  '|     ')
+        print('   ',  '|     ')
+        print('   ',  '|     ')
+        print('------------')
+    if x == 3:
+        print('   ',  '------')
+        print('   ',  '|     ')
+        print('   ',  '|     ')
+        print('   ',  '|     ')
+        print('   ',  '|     ')
+        print('   ',  '|     ')
+        print('------------')
+    if x == 4:
+        print('   ',  '------')
+        print('   ',  '|    |')
+        print('   ',  '|     ')
+        print('   ',  '|     ')
+        print('   ',  '|     ')
+        print('   ',  '|     ')
+        print('------------')
+    if x == 5:
+        print('   ',  '------')
+        print('   ',  '|    |')
+        print('   ',  '|    O')
+        print('   ',  '|     ')
+        print('   ',  '|     ')
+        print('   ',  '|     ')
+        print('------------')        
+    if x == 6:
+        print('   ',  '------')
+        print('   ',  '|    |')
+        print('   ',  '|    O')
+        print('   ',  '|   - ')
+        print('   ',  '|     ')
+        print('   ',  '|     ')
+        print('------------')    
+    if x == 7:
+        print('   ',  '------')
+        print('   ',  '|    |')
+        print('   ',  '|    O')
+        print('   ',  '|   -|')
+        print('   ',  '|     ')
+        print('   ',  '|     ')
+        print('------------')
+    if x == 8:
+        print('   ',  '------')
+        print('   ',  '|    |')
+        print('   ',  '|    O')
+        print('   ',  '|   -|-')
+        print('   ',  '|     ')
+        print('   ',  '|     ')
+        print('------------')
+    if x == 9:
+        print('   ',  '------')
+        print('   ',  '|    |')
+        print('   ',  '|    O')
+        print('   ',  '|   -|-')
+        print('   ',  '|    | ')
+        print('   ',  '|    ')
+        print('------------')     
+    if x == 10:
+        print('   ',  '------')
+        print('   ',  '|    |')
+        print('   ',  '|    O')
+        print('   ',  '|   -|-')
+        print('   ',  '|    | ')
+        print('   ',  '|   / ')
+        print('------------')    
+    if x == 11:
+        print('   ',  '------')
+        print('   ',  '|    |')
+        print('   ',  '|    O')
+        print('   ',  '|   -|-')
+        print('   ',  '|    | ')
+        print('   ',  '|   / \\')
+        print('------------')
             
 # Menu
 while True:
@@ -75,6 +173,7 @@ while True:
     choice = input('Ange ditt val (1-2):')
 
     if choice == '1':
+        os.system('cls')
         playHangMan() 
     elif choice == '2':
         print('Programmet avslutas. Hej då!')
