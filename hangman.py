@@ -16,6 +16,7 @@ hangmanlist = [ "äpple", "apelsin", "banan", "jordgubbe", "kiwi",
                 "citronkaktus", "kiwanomelon", "rönnbär", "kastanj", "kvitten",
                 "fikonkaktus", "fikon", "körsbärspaprika", "acaibär", "ackee" ]
 
+
 # Controls if the character "charGuess" exists in the word "theWord"
 def doesCharExist(theWord, charGuess, rightGuess):
     exist = False
@@ -24,6 +25,7 @@ def doesCharExist(theWord, charGuess, rightGuess):
             rightGuess[i] = charGuess
             exist = True
     return exist
+
 
 # Controls if the player has won the game
 def checkIfRight(rightGuess):
@@ -35,6 +37,7 @@ def checkIfRight(rightGuess):
         print("Du vann!!! Bra jobbat.")        
     return gamewin
 
+
 # Starts the game Hangman
 def playHangMan():
     index = random.randint(0,64)
@@ -43,8 +46,10 @@ def playHangMan():
     rightGuess = ["*"] * len(theWord)
     numOfGuesses = 0
 
-    print(f"\nOrdet du skall gissa är på {thewordLength} bokstäver. \nDu får tio felaktiga gissningar på dig innan spelet avslutas.")
-    
+    os.system('cls')
+    print(f"Ordet du skall gissa är på {thewordLength} bokstäver. Du har tio felaktiga gissningar på dig.")
+    hangmanGrapic(0)
+
     while numOfGuesses < 11 and not checkIfRight(rightGuess):
         charGuess = input('Gissa på en bokstav:')
         os.system('cls')
@@ -57,12 +62,12 @@ def playHangMan():
                 numOfGuesses += 1
 
         else:
-            print("Mata bara in en bokstav:")
-            continue
+            print("Felaktig inmatning , ange bara en bokstav åt gången.")
         
         hangmanGrapic(numOfGuesses)
     if numOfGuesses == 11:
         print(f"\nTyvärr du förlorade. Det rätta ordet var {theWord}. \n")
+
 
 def hangmanGrapic(x):
     if x == 0:
@@ -161,6 +166,7 @@ def hangmanGrapic(x):
         print('   ',  '|    | ')
         print('   ',  '|   / \\')
         print('------------')
+    
             
 # Menu
 while True:
@@ -173,9 +179,8 @@ while True:
     choice = input('Ange ditt val (1-2):')
 
     if choice == '1':
-        os.system('cls')
         playHangMan() 
-    elif choice == '2':
+    elif choice == '2' or choice == 'q' or choice == 'z':
         print('Programmet avslutas. Hej då!')
         break
     else:
